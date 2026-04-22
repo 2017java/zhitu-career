@@ -1,10 +1,22 @@
 import { NextRequest } from 'next/server';
 import OpenAI from 'openai';
 
-const client = new OpenAI({
-  apiKey: process.env.ARK_API_KEY,
-  baseURL: process.env.ARK_BASE_URL || 'https://ark.cn-beijing.volces.com/api/coding/v3',
-});
+// 延迟初始化，避免冷启动时环境变量未加载导致崩溃
+let _client: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!_client) {
+    const apiKey = process.env.ARK_API_KEY;
+    const baseURL = process.env.ARK_BASE_URL || 'https://ark.cn-beijing.volces.com/api/coding/v3';
+
+    if (!apiKey) {
+      throw new Error('ARK_API_KEY environment variable is not set');
+    }
+
+    _client = new OpenAI({ apiKey, baseURL });
+  }
+  return _client;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,6 +29,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    const client = getClient();
     const response = await client.chat.completions.create({
       model: process.env.ARK_MODEL || 'doubao-pro-128k',
       messages: [
