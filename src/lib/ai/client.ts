@@ -50,7 +50,7 @@ export async function chatWithAI(systemPrompt: string, userMessage: string, time
 /**
  * 浏览器端调用AI — 通过 /api/ai/chat 路由代理
  */
-export async function chatWithAIProxy(systemPrompt: string, userMessage: string, timeoutMs = 15000): Promise<string> {
+export async function chatWithAIProxy(systemPrompt: string, userMessage: string, timeoutMs = 25000): Promise<string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 

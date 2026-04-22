@@ -18,6 +18,9 @@ function getClient(): OpenAI {
   return _client;
 }
 
+// Vercel Hobby 默认10秒超时，AI请求需要更长时间
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const { systemPrompt, userMessage } = await request.json();
