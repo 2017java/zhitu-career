@@ -30,8 +30,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build static export
+        run: |
+          # 临时添加静态导出配置用于GitHub Pages
+          cp next.config.ts next.config.ts.bak
+          cat > next.config.ts << 'NEXTCFG'
+          import type { NextConfig } from "next";
+          const nextConfig: NextConfig = {
+            output: "export",
+            basePath: "/zhitu-career",
+            images: { unoptimized: true },
+          };
+          export default nextConfig;
+          NEXTCFG
+          npm run build
+          cp next.config.ts.bak next.config.ts
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
