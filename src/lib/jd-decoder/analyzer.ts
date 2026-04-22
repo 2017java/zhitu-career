@@ -283,7 +283,7 @@ export async function analyzeJD(
 ): Promise<{ data: JDAnalysisResult; mode: 'ai' | 'fallback' }> {
   // 1. 尝试 AI 分析
   try {
-    const aiResponse = await chatWithAIProxy(JD_DECODER_PROMPT, jdText, 15000);
+    const aiResponse = await chatWithAIProxy(JD_DECODER_PROMPT, jdText);
 
     // 尝试从 AI 响应中提取 JSON
     const jsonMatch = aiResponse.match(/```json\s*([\s\S]*?)```/) ||

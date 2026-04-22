@@ -49,30 +49,20 @@ export async function chatWithAI(systemPrompt: string, userMessage: string, time
 
 /**
  * 浏览器端调用AI — 通过 /api/ai/chat 路由代理
+ * 不使用 AbortController，完全依赖服务端超时控制
  */
-export async function chatWithAIProxy(systemPrompt: string, userMessage: string, timeoutMs = 25000): Promise<string> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+export async function chatWithAIProxy(systemPrompt: string, userMessage: string): Promise<string> {
+  const response = await fetch('/api/ai/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ systemPrompt, userMessage }),
+  });
 
-  try {
-    const response = await fetch('/api/ai/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ systemPrompt, userMessage }),
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeout);
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `AI request failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.content || '';
-  } catch (error) {
-    clearTimeout(timeout);
-    throw error;
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `AI request failed: ${response.status}`);
   }
+
+  const data = await response.json();
+  return data.content || '';
 }
