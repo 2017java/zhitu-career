@@ -105,8 +105,12 @@ src/
 
 ## 🌐 在线访问
 
-部署在 GitHub Pages：**https://2017java.github.io/zhitu-career/**
+**https://2017java.github.io/zhitu-career/**
 
-## 📄 License
+## ⚖️ 许可声明
 
-Apache-2.0
+本项目仅供个人学习和测试使用，**未开源**。未经授权，请勿用于商业用途或二次分发。
+
+---
+
+> 本项目使用 Claude Code 辅助开发。如需在 Claude Code / Cursor 等 AI 编码工具中继续开发本项目，可在项目根目录创建 `CLAUDE.md` 文件，添加项目上下文说明即可。
