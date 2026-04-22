@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-parchment: #f5f4ed;
+  --color-ivory: #faf9f5;
+  --color-near-black: #141413;
+  --color-dark-surface: #30302e;
+  --color-terracotta: #c96442;
+  --color-coral: #d97757;
+  --color-charcoal-warm: #4d4c48;
+  --color-olive-gray: #5e5d59;
+  --color-stone-gray: #87867f;
+  --color-dark-warm: #3d3d3a;
+  --color-warm-silver: #b0aea5;
+  --color-border-cream: #f0eee6;
+  --color-border-warm: #e8e6dc;
+  --color-warm-sand: #e8e6dc;
+  --color-focus-blue: #3898ec;
+  --color-error-crimson: #b53333;
+  --color-success-sage: #4a7c59;
+
+  --font-serif: 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+body {
+  background-color: var(--color-parchment);
+  color: var(--color-near-black);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Star twinkle animation for SBTI theme */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 100, 66, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(201, 100, 66, 0.4); }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Star field background */
+.star-field {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(201, 100, 66, 0.4), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(201, 100, 66, 0.3), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(201, 100, 66, 0.5), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(201, 100, 66, 0.3), transparent),
+    radial-gradient(2px 2px at 160px 30px, rgba(201, 100, 66, 0.4), transparent),
+    radial-gradient(1px 1px at 200px 60px, rgba(201, 100, 66, 0.2), transparent),
+    radial-gradient(2px 2px at 250px 20px, rgba(201, 100, 66, 0.3), transparent),
+    radial-gradient(1px 1px at 300px 50px, rgba(201, 100, 66, 0.4), transparent);
+  background-size: 320px 100px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone-gray);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-olive-gray);
+}
