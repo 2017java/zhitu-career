@@ -5,7 +5,7 @@
 
 import type { JDAnalysisResult, Skill } from './types';
 import { JD_DECODER_PROMPT } from '@/lib/ai/prompts';
-import { chatWithAI } from '@/lib/ai/client';
+import { chatWithAIProxy } from '@/lib/ai/client';
 import {
   HARD_SKILL_KEYWORDS,
   SOFT_SKILL_KEYWORDS,
@@ -283,7 +283,7 @@ export async function analyzeJD(
 ): Promise<{ data: JDAnalysisResult; mode: 'ai' | 'fallback' }> {
   // 1. 尝试 AI 分析
   try {
-    const aiResponse = await chatWithAI(JD_DECODER_PROMPT, jdText, 10000);
+    const aiResponse = await chatWithAIProxy(JD_DECODER_PROMPT, jdText, 15000);
 
     // 尝试从 AI 响应中提取 JSON
     const jsonMatch = aiResponse.match(/```json\s*([\s\S]*?)```/) ||
