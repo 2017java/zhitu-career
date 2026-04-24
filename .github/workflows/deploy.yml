@@ -43,6 +43,8 @@ jobs:
           };
           export default nextConfig;
           NEXTCFG
+          # 删除API路由（静态导出不支持serverless函数）
+          rm -rf src/app/api
           npm run build
           cp next.config.ts.bak next.config.ts
 
